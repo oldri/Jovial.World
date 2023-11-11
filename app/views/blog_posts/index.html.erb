@@ -1,0 +1,27 @@
+<!-- FILEPATH: /Users/oldri/Documents/Development/ruby-sandbox/go-rails/blog/app/views/blog_posts/index.html.erb -->
+
+<div class="split-layout">
+  <div class="content-section">
+    <% @blog_posts.each do |post| %>
+    <div class="post">
+      <h2><%= link_to post.title, post %></h2>
+      <p><%= post.body %></p>
+      <h5><%= post.created_at.strftime("%B %d, %Y") %></h5>
+      <% if post.errors.any? %>
+      <div id="error_explanation">
+        <h2>
+          <%= pluralize(post.errors.count, "error") %> prohibited this post from
+          being saved:
+        </h2>
+        <ul>
+          <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+  <div class="image-section"></div>
+</div>

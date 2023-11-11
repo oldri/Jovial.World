@@ -1,0 +1,14 @@
+<!-- FILEPATH: /Users/oldri/Documents/Development/ruby-sandbox/go-rails/blog/app/views/blog_posts/show.html.erb -->
+<div class="split-layout">
+  <div class="content-section">
+    <h1><%= @blog_post.title %></h1>
+    <p><%= @blog_post.body %></p>
+    <h5>Written on <%= @blog_post.created_at.strftime("%B %d, %Y") %></h5>
+
+    <div class="button-group">
+      <%= link_to "Edit", edit_blog_post_path(@blog_post), class: "button" %>
+      <%= button_to "Delete", blog_post_path(@blog_post), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "button" %>
+    </div>
+  </div>
+  <div class="image-section"></div>
+</div>

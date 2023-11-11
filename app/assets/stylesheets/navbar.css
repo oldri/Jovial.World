@@ -1,0 +1,42 @@
+/* FILEPATH: app/assets/stylesheets/navbar.css */
+
+nav {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* add this to wrap the items when they don't fit */
+}
+
+nav li {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    order: 2; /* add this to make the 3rd li tag the top most tag */
+}
+
+nav li:nth-child(2) {
+    order: 1; /* add this to make the 3rd li tag the top most tag */
+    font-weight: bold;
+    font-size: 5rem;
+    color: aqua;
+    margin-left: 0; /* remove the margin-left on the 3rd li tag when it is responsive */
+}
+
+nav a {
+    text-decoration: none; /* add this to remove the underline from the a tags */
+}
+
+body {
+    padding-top: 60px; /* Adjust this value based on the height of your navbar */
+}

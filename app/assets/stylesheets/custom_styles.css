@@ -1,0 +1,94 @@
+/* FILEPATH: /app/assets/stylesheets/custom_styles.css */
+
+/* Container for the split layout */
+* {
+  font-family: "Arial", sans-serif;
+}
+
+.split-layout {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Style for the left content section */
+.content-section {
+  flex: 1;
+  padding: 20px;
+  /* Add any additional styling for the content section */
+}
+
+/* Style for the right image section */
+.image-section {
+  flex: 1;
+  height: 100vh; /* Set the height to cover the entire viewport height */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("rabbit.png"); /* Use a relative path */
+  /* Add any additional styling for the image section */
+}
+
+/* Optional: Adjustments for better readability */
+h1 {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+a {
+  text-decoration: none; 
+  color: black;
+}
+
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  border: none;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 0%;
+  padding: 0%;
+  cursor: pointer;
+  background: none;
+}
+
+@media (max-width: 768px) {
+  .split-layout {
+    flex-direction: column;
+  }
+
+  .content-section {
+    padding: 0;
+  }
+
+  .image-section {
+    height: 50vh;
+    order: 2;
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .post {
+    font-size: 14px;
+  }
+}

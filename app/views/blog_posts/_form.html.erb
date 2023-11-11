@@ -1,0 +1,31 @@
+<% if @blog_post.nil? %>
+  <p>Blog post not found.</p>
+<% else %>
+  <%= form_with(model: @blog_post, local: true) do |form| %>
+    <% if @blog_post.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@blog_post.errors.count, "error") %> prohibited this blog post from being saved:</h2>
+
+        <ul>
+        <% @blog_post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <p>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </p>
+
+    <p>
+      <%= form.label :body %><br>
+      <%= form.text_area :body %>
+    </p>
+
+    <p>
+      <%= form.submit class: "btn" %>
+    </p>
+  <% end %>
+<% end %>
