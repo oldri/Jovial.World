@@ -1,8 +1,6 @@
-/* FILEPATH: /app/assets/stylesheets/custom_styles.css */
-
-/* Container for the split layout */
 * {
   font-family: "Arial", sans-serif;
+  box-sizing: border-box;
 }
 
 .split-layout {
@@ -10,25 +8,24 @@
   flex-wrap: wrap;
 }
 
-/* Style for the left content section */
 .content-section {
   flex: 1;
   padding: 20px;
-  /* Add any additional styling for the content section */
 }
 
-/* Style for the right image section */
+.content-section-index {
+  flex: 1;
+}
+
 .image-section {
   flex: 1;
-  height: 100vh; /* Set the height to cover the entire viewport height */
+  height: 100vh; 
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("rabbit.png"); /* Use a relative path */
-  /* Add any additional styling for the image section */
+  background-image: url("rabbit.png"); 
 }
 
-/* Optional: Adjustments for better readability */
 h1 {
   margin-bottom: 20px;
 }

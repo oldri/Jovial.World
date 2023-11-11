@@ -1,14 +1,44 @@
-<!-- FILEPATH: /Users/oldri/Documents/Development/ruby-sandbox/go-rails/blog/app/views/blog_posts/show.html.erb -->
 <div class="split-layout">
-  <div class="content-section">
-    <h1><%= @blog_post.title %></h1>
+  <div class="content-section-index">
+    <h2><%= @blog_post.title %></h2>
+    <p>By: <%= @blog_post.user.user_name %></p>
     <p><%= @blog_post.body %></p>
     <h5>Written on <%= @blog_post.created_at.strftime("%B %d, %Y") %></h5>
 
+    <% if user_signed_in? && @blog_post.user == current_user %>
     <div class="button-group">
       <%= link_to "Edit", edit_blog_post_path(@blog_post), class: "button" %>
-      <%= button_to "Delete", blog_post_path(@blog_post), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "button" %>
+      <%= button_to "Delete", blog_post_path(@blog_post), method: :delete, data:
+      { turbo_confirm: "Are you sure?" }, class: "button" %>
     </div>
+    <% end %>
+
+    <h2>Comments</h2>
+    <% @blog_post.comments.each do |comment| %>
+      <div>
+        <p><strong><%= comment.user.user_name %>:</strong> <%= comment.body %></p>
+        <% if user_signed_in? && comment.user == current_user %>
+          <%= button_to "Delete Comment", [@blog_post, comment], method: :delete, data:
+          { turbo_confirm: "Are you sure?" }, class: "button" %>
+        <% end %>
+      </div>
+    <% end %>
+
+
+    <% if user_signed_in? %>
+      <h3>Add a Comment</h3>
+      <%= form_with(model: [ @blog_post, Comment.new ], local: true) do |form| %>
+        <div class="field">
+          <%= form.label :body, "Your Comment" %><br>
+          <%= form.text_area :body, rows: 4 %>
+        </div>
+        <div class="actions">
+          <%= form.submit "Submit Comment" %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>Please <%= link_to 'log in', new_user_session_path %> to add comments.</p>
+    <% end %>
   </div>
   <div class="image-section"></div>
 </div>

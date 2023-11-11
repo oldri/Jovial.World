@@ -1,6 +1,6 @@
-
 class BlogPostsController < ApplicationController
-  before_action :set_blog_post, only: [:show, :edit, :update, :destroy], except: [:index, :new, :create]
+  before_action :set_blog_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
     redirect_to root_path, notice: "Blog post not found"
@@ -18,7 +18,7 @@ class BlogPostsController < ApplicationController
   end
 
   def create
-    @blog_post = BlogPost.new(blog_post_params)
+    @blog_post = current_user.blog_posts.new(blog_post_params)
 
     if @blog_post.save
       redirect_to @blog_post
@@ -28,28 +28,39 @@ class BlogPostsController < ApplicationController
   end
 
   def edit
+    unless @blog_post.user == current_user
+      redirect_to root_path, alert: "You are not authorized to edit this post."
+    end
   end
 
   def update
-    if @blog_post.update(blog_post_params)
-      redirect_to @blog_post
+    if @blog_post.user == current_user
+      if @blog_post.update(blog_post_params)
+        redirect_to @blog_post
+      else
+        render :edit, status: :unprocessable_entity
+      end
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to root_path, alert: "You are not authorized to update this post."
     end
   end
 
   def destroy
-    @blog_post.destroy
-  
-    redirect_to root_path
+    if @blog_post.user == current_user
+      @blog_post.destroy
+      redirect_to root_path
+    else
+      redirect_to root_path, alert: "You are not authorized to delete this post."
+    end
   end
 
   private
-    def blog_post_params
-      params.require(:blog_post).permit(:title, :body)
-    end
 
-    def set_blog_post
-      @blog_post = BlogPost.find(params[:id])
-    end
+  def blog_post_params
+    params.require(:blog_post).permit(:title, :body)
+  end
+
+  def set_blog_post
+    @blog_post = BlogPost.find(params[:id])
+  end
 end

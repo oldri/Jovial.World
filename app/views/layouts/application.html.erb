@@ -1,41 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Jovial.World</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "navbar", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <%= csrf_meta_tags %> <%= csp_meta_tag %> <%= favicon_link_tag 'rabbit.png'
+    %> <%= stylesheet_link_tag "application", "navbar", "errors",
+    "data-turbo-track": "reload" %> <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <nav>
-      <ul>
-        <li><%= link_to 'New Post', new_blog_post_path %></li>
-        <li id="colorful-text"><%= link_to 'Jovial.World', root_path %></li>
-      </ul>
-    </nav>
-    <%= yield %>
+    <% if flash[:notice].present? %>
+    <p class="notice" style="margin-top: 40px;"><%= notice %></p>
+    <% end %>
 
+    <nav>
+      <div class="nav-container">
+        <div class="first">
+          <ul>
+            <li id="colorful-text"><%= link_to 'Jovial.World', root_path %></li>
+          </ul>
+        </div>
+
+        <% if user_signed_in? %>
+        <div class="rest">
+          <ul>
+            <% unless current_page?(new_user_session_path) %>
+            <li><%= link_to 'New Post', new_blog_post_path %></li>
+            <li><%= link_to 'Profile', edit_user_registration_path %></li>
+            <li>
+              <%= button_to 'Log Out', destroy_user_session_path, method:
+              :delete %>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+        <% else %>
+        <div class="rest">
+          <ul>
+            <% unless current_page?(new_user_session_path) %>
+              <% unless current_page?(new_user_registration_path) %>
+                <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      </div>
+    </nav>
+    <div class="content-section"><%= yield %></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-    $(document).ready(function(){
-      $("#colorful-text a").each(function() {
-        var letters = $(this).text().split("");
-        $(this).empty();
-        for (var i = 0; i < letters.length; i++) {
-          var color = 'rgb(' + 
-            (Math.floor(Math.random() * 256)) + ',' + 
-            (Math.floor(Math.random() * 256)) + ',' + 
-            (Math.floor(Math.random() * 256)) + ')';
-          var span = $("<span>").text(letters[i]).css("color", color);
-          $(this).append(span);
-        }
+      $(document).ready(function () {
+        $("#colorful-text a").each(function () {
+          var letters = $(this).text().split("");
+          $(this).empty();
+          for (var i = 0; i < letters.length; i++) {
+            var color =
+              "rgb(" +
+              Math.floor(Math.random() * 256) +
+              "," +
+              Math.floor(Math.random() * 256) +
+              "," +
+              Math.floor(Math.random() * 256) +
+              ")";
+            var span = $("<span>").text(letters[i]).css("color", color);
+            $(this).append(span);
+          }
+        });
       });
-    });
     </script>
   </body>
 </html>
