@@ -13,6 +13,19 @@
     </div>
     <% end %>
 
+    <div>
+      <p>Likes: <%= @blog_post.likes.count %></p>
+      <% if user_signed_in? %>
+        <div class="actions">
+          <% if current_user.liked_blog_posts.include?(@blog_post) %>
+            <%= button_to 'Unlike', unlike_blog_post_path(@blog_post), method: :delete, class: 'button' %>
+          <% else %>
+            <%= button_to 'Like', like_blog_post_path(@blog_post), method: :post, class: 'button' %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
     <h2>Comments</h2>
     <% @blog_post.comments.each do |comment| %>
       <div>

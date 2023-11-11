@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
   resources :blog_posts do
     resources :comments, only: [:create, :destroy]
+    member do
+      post 'like'
+      delete 'unlike'
+    end
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

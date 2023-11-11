@@ -54,6 +54,18 @@ class BlogPostsController < ApplicationController
     end
   end
 
+  def like
+    @blog_post = BlogPost.find(params[:id])
+    current_user.likes.create(likeable: @blog_post)
+    redirect_to @blog_post, notice: 'Post liked!'
+  end
+
+  def unlike
+    @blog_post = BlogPost.find(params[:id])
+    current_user.likes.find_by(likeable: @blog_post).destroy
+    redirect_to @blog_post, notice: 'Post unliked!'
+  end
+
   private
 
   def blog_post_params

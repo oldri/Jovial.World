@@ -6,6 +6,7 @@
         <p>By: <%= post.user.user_name %></p> 
         <p><%= post.body %></p>
         <h5><%= post.created_at.strftime("%B %d, %Y") %></h5>
+        <h5>Likes: <%= post.likes.count %></h5>
         <% if post.errors.any? %>
           <div id="error_explanation">
             <h2>
