@@ -6,8 +6,8 @@
     <%= link_to "Back", root_path, class: "btn bg-gray-500 text-white hover:bg-gray-600 px-4 py-2 rounded-md" %>
   </div>
   
-  <p class="text-gray-700 mb-2">By: <%= @blog_post.user.user_name %></p>
-  <p class="text-gray-800 mb-6"><%= @blog_post.body %></p>
+  <p class="text-gray-700 text-lg font-semibold mb-2">By: <%= @blog_post.user.user_name %></p>
+  <p class="text-gray-800 text-base leading-relaxed mb-6"><%= @blog_post.body %></p>
   <div class="text-sm text-gray-700 mb-4">
     <p>Written on <%= @blog_post.created_at.strftime("%B %d, %Y") %></p>
     <p><i class="fas fa-heart <%= @blog_post.likes.count.zero? ? 'text-gray-500' : 'text-pink-500' %>"></i> <%= @blog_post.likes.count %></p>
