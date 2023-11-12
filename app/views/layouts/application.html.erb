@@ -3,29 +3,19 @@
   <head>
     <title>Jovial.World</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <%= csrf_meta_tags %> <%= csp_meta_tag %> <%= favicon_link_tag 'rabbit.png'
-    %> <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %> <%=
-    javascript_importmap_tags %>
+    <%= csrf_meta_tags %> <%= csp_meta_tag %> 
+    <%= favicon_link_tag 'rabbit.png' %> 
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %> 
+    <%= javascript_importmap_tags %>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
-    <style>
-      #flash-notice {
-        z-index: 999;
-        position: fixed;
-        top: 0;
-        left: 50%;
-        width: 100%;
-        transform: translateX(-50%);
-        text-align: center;
-      }
-    </style>
   </head>
 
   <body class="font-sans bg-gray-100">
     <% if flash[:notice].present? %>
-    <div id="flash-notice" class="bg-green-500 text-white p-4">
+    <div id="flash-notice" class="flash-notice">
       <%= notice %>
     </div>
     <% end %>
