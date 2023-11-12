@@ -15,9 +15,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @blog_post = BlogPost.find(params[:blog_post_id])
-    @comment = @blog_post.comments.find(params[:id])
-
     if @comment.user == current_user
       @comment.destroy
       redirect_to @blog_post, notice: "Comment was successfully deleted."

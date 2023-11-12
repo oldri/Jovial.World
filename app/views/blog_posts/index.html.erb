@@ -12,7 +12,10 @@
     </p>
     <div class="flex justify-between items-center text-sm text-gray-700 mb-2">
       <div><%= post.created_at.strftime("%B %d, %Y") %></div>
-      <div class="text-blue-500">Likes: <%= post.likes.count %></div>
+      <p><i class="fas fa-heart <%= post.likes.count.zero? ? 'text-gray-500' : 'text-pink-500' %>"></i> <%= post.likes.count %></p>
+    </div>
+    <div class="flex justify-between items-center text-sm text-gray-700">
+      <p>Comments: <%= post.comments.count %></p>
     </div>
     <% if post.errors.any? %>
     <div

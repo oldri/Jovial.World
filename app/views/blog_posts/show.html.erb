@@ -35,10 +35,13 @@
     </div>
   <% end %>
 
-  <h2 class="mt-6">Comments</h2>
+  <h2 class="mt-6">Comments: <%= @blog_post.comments.count %></h2>
   <% @blog_post.comments.each do |comment| %>
     <div class="mt-4 flex justify-between items-center bg-gray-200 p-2 rounded-md">
-      <p class="text-gray-800"><strong><%= comment.user.user_name %>:</strong> <%= comment.body %></p>
+      <div>
+        <p class="text-gray-800"><strong><%= comment.user.user_name %>:</strong> <%= comment.body %></p>
+        <p class="text-gray-600 text-sm">Posted <%= time_ago_in_words(comment.created_at) %> ago</p>      
+      </div>
       <% if user_signed_in? && comment.user == current_user %>
         <%= button_to [@blog_post, comment], method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn bg-red-500 text-white hover:bg-gray-600 px-2 py-2 rounded-md" do %>
           <i class="fas fa-times"></i>
@@ -50,11 +53,12 @@
   <% if user_signed_in? %>
     <h3 class="mt-6">Add a Comment</h3>
     <%= form_with(model: [ @blog_post, Comment.new ], local: true) do |form| %>
-      <div class="field">
-        <%= form.text_area :body, rows: 4, class: "w-full p-2 border rounded-md" %>
+      <div class="field relative">
+        <%= form.text_area :body, rows: 4, class: "w-full p-2 border rounded-md", id: "commentBody" %>
+        <span id="charCount" class="text-sm text-gray-500 absolute right-2 top-2">0/1000</span>
       </div>
       <div class="actions mt-4">
-        <%= form.submit "Submit Comment", class: "btn bg-green-500 text-white hover:bg-gray-600 px-2 py-2 rounded-md" %>
+        <%= form.submit "Submit Comment", class: "btn text-white px-2 py-2 rounded-md bg-gray-500 hover:bg-gray-600 opacity-50", id: "submit_button", disabled: true %>
       </div>
     <% end %>
   <% else %>
@@ -63,3 +67,32 @@
     </p>
   <% end %>
 </div>
+
+<script>
+  var commentInput = document.getElementById('commentBody');
+  var submitButton = document.getElementById('submit_button');
+  var charCount = document.getElementById('charCount');
+
+  commentInput.addEventListener('input', function(e) {
+    var commentLength = e.target.value.trim().length;
+    charCount.textContent = commentLength + '/1000';
+    
+    charCount.classList.toggle('text-red-500', !(commentLength >= 5 && commentLength <= 1000));
+
+    if (commentLength >= 5 && commentLength <= 1000) {
+      submitButton.disabled = false;
+      submitButton.classList.remove('bg-gray-500', 'hover:bg-gray-600', 'opacity-50');
+      submitButton.classList.add('bg-green-500', 'hover:bg-green-600');
+    } else {
+      submitButton.disabled = true;
+      submitButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+      submitButton.classList.add('bg-gray-500', 'hover:bg-gray-600', 'opacity-50');
+    }
+  });
+
+  if (commentInput.value.trim().length >= 5 && commentInput.value.trim().length <= 1000) {
+    submitButton.disabled = false;
+    submitButton.classList.remove('bg-gray-500', 'hover:bg-gray-600', 'opacity-50');
+    submitButton.classList.add('bg-green-500', 'hover:bg-green-600');
+  }
+</script>
