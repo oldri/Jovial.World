@@ -75,4 +75,14 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.example.com', # Your SMTP server address
+    port: 587, # Your SMTP server port (587 is the default for TLS, 465 for SSL)
+    domain: 'example.com', # Your domain
+    user_name: 'your_username', # Your SMTP username
+    password: 'your_password', # Your SMTP password
+    authentication: 'login', # Use 'login' for username/password authentication
+    enable_starttls_auto: true # Enable TLS
+  }
 end

@@ -1,31 +1,33 @@
 <% if @blog_post.nil? %>
   <p>Blog post not found.</p>
 <% else %>
-  <%= form_with(model: @blog_post, local: true) do |form| %>
+  <%= form_with(model: @blog_post, local: true, class: "w-full max-w-screen-md mx-auto") do |form| %>
     <% if @blog_post.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@blog_post.errors.count, "error") %> prohibited this blog post from being saved:</h2>
+      <div id="error_explanation" class="mb-4 bg-red-100 text-red-700 p-4 rounded-md">
+        <h2 class="text-sm font-semibold mb-2">
+          <%= pluralize(@blog_post.errors.count, "error") %> prohibited this blog post from being saved:
+        </h2>
 
         <ul>
-        <% @blog_post.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
+          <% @blog_post.errors.full_messages.each do |message| %>
+            <li class="list-disc ml-4"><%= message %></li>
+          <% end %>
         </ul>
       </div>
     <% end %>
 
-    <p>
-      <%= form.label :title %><br>
-      <%= form.text_field :title %>
-    </p>
+    <div class="mb-4">
+      <%= form.label :title, class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.text_field :title, class: "w-full p-2 border rounded-md" %>
+    </div>
 
-    <p>
-      <%= form.label :body %><br>
-      <%= form.text_area :body %>
-    </p>
+    <div class="mb-4">
+      <%= form.label :body, class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= form.text_area :body, rows: 4, class: "w-full p-2 border rounded-md" %>
+    </div>
 
-    <p>
-      <%= form.submit class: "btn" %>
-    </p>
+    <div>
+      <%= form.submit "Submit", class: "btn bg-blue-500 text-white hover:bg-blue-600 w-full p-2 rounded-md" %>
+    </div>
   <% end %>
 <% end %>

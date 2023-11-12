@@ -4,50 +4,70 @@
     <title>Jovial.World</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <%= csrf_meta_tags %> <%= csp_meta_tag %> <%= favicon_link_tag 'rabbit.png'
-    %> <%= stylesheet_link_tag "application", "navbar", "errors",
-    "data-turbo-track": "reload" %> <%= javascript_importmap_tags %>
+    %> <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %> <%=
+    javascript_importmap_tags %>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style>
+      #flash-notice {
+        z-index: 999;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        width: 100%;
+        transform: translateX(-50%);
+        text-align: center;
+      }
+    </style>
   </head>
 
-  <body>
+  <body class="font-sans bg-gray-100">
     <% if flash[:notice].present? %>
-    <p class="notice" style="margin-top: 40px;"><%= notice %></p>
+    <div id="flash-notice" class="bg-green-500 text-white p-4">
+      <%= notice %>
+    </div>
     <% end %>
 
-    <nav>
-      <div class="nav-container">
-        <div class="first">
+    <nav class="bg-gray-800 text-white py-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <div>
           <ul>
-            <li id="colorful-text"><%= link_to 'Jovial.World', root_path %></li>
+            <li id="colorful-text">
+              <%= link_to 'Jovial.World', root_path, class: 'text-8xl font-bold'
+              %>
+            </li>
           </ul>
         </div>
 
-        <% if user_signed_in? %>
-        <div class="rest">
-          <ul>
-            <% unless current_page?(new_user_session_path) %>
+        <div>
+          <ul class="flex space-x-4">
+            <% if user_signed_in? %> <% unless
+            current_page?(new_user_session_path) %>
             <li><%= link_to 'New Post', new_blog_post_path %></li>
             <li><%= link_to 'Profile', edit_user_registration_path %></li>
             <li>
               <%= button_to 'Log Out', destroy_user_session_path, method:
               :delete %>
             </li>
-            <% end %>
+            <% end %> <% else %> <% unless current_page?(new_user_session_path)
+            %> <% unless current_page?(new_user_registration_path) %>
+            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+            <% end %> <% end %> <% end %>
           </ul>
         </div>
-        <% else %>
-        <div class="rest">
-          <ul>
-            <% unless current_page?(new_user_session_path) %>
-              <% unless current_page?(new_user_registration_path) %>
-                <li><%= link_to 'Sign Up', new_user_registration_path %></li>
-              <% end %>
-            <% end %>
-          </ul>
-        </div>
-        <% end %>
       </div>
     </nav>
-    <div class="content-section"><%= yield %></div>
+
+    <div class="container mx-auto py-8 flex">
+      <div class="w-1/2 pr-4"><%= yield %></div>
+      <div
+        class="w-1/2 flex-1 h-screen bg-cover bg-center rounded-md"
+        style="background-image: url('<%= asset_path('rabbit.png') %>')"
+      ></div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
       $(document).ready(function () {
@@ -67,6 +87,22 @@
             $(this).append(span);
           }
         });
+      });
+    </script>
+    <script>
+      document.addEventListener("turbo:load", function () {
+        var flashNotice = document.getElementById("flash-notice");
+
+        if (flashNotice) {
+          setTimeout(function () {
+            flashNotice.style.transition = "opacity 1s";
+            flashNotice.style.opacity = "0";
+            setTimeout(function () {
+              flashNotice.style.display = "none";
+              flashNotice.style.transition = "";
+            }, 1000);
+          }, 2500);
+        }
       });
     </script>
   </body>

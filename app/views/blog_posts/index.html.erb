@@ -1,27 +1,35 @@
-<div class="split-layout">
-  <div class="content-section-index">
-    <% @blog_posts.each do |post| %>
-      <div class="post">
-        <h2><%= link_to post.title, post %></h2>
-        <p>By: <%= post.user.user_name %></p> 
-        <p><%= post.body %></p>
-        <h5><%= post.created_at.strftime("%B %d, %Y") %></h5>
-        <h5>Likes: <%= post.likes.count %></h5>
-        <% if post.errors.any? %>
-          <div id="error_explanation">
-            <h2>
-              <%= pluralize(post.errors.count, "error") %> prohibited this post from
-              being saved:
-            </h2>
-            <ul>
-              <% post.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
-          </div>
+<div>
+  <% @blog_posts.each do |post| %>
+  <div class="bg-white p-6 mb-4 rounded-md shadow-md">
+    <h2
+      class="text-2xl font-bold mb-4 text-blue-600 hover:text-blue-800 transition-colors duration-200"
+    >
+      <%= link_to post.title, post, class: "no-underline hover:underline" %>
+    </h2>
+    <p class="text-gray-600 mb-2">By: <%= post.user.user_name %></p>
+    <p class="text-gray-800 mb-6 text-lg leading-relaxed">
+      <%= post.body.truncate(150) %>
+    </p>
+    <div class="flex justify-between items-center text-sm text-gray-700 mb-2">
+      <div><%= post.created_at.strftime("%B %d, %Y") %></div>
+      <div class="text-blue-500">Likes: <%= post.likes.count %></div>
+    </div>
+    <% if post.errors.any? %>
+    <div
+      id="error_explanation"
+      class="mt-4 bg-red-100 text-red-700 p-4 rounded-md"
+    >
+      <h2 class="text-sm font-semibold mb-2">
+        <%= pluralize(post.errors.count, "error") %> prohibited this post from
+        being saved:
+      </h2>
+      <ul>
+        <% post.errors.full_messages.each do |message| %>
+        <li class="list-disc ml-4"><%= message %></li>
         <% end %>
-      </div>
+      </ul>
+    </div>
     <% end %>
   </div>
-  <div class="image-section"></div>
+  <% end %>
 </div>

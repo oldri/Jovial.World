@@ -1,6 +1,6 @@
 class BlogPostsController < ApplicationController
-  before_action :set_blog_post, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_blog_post, only: [:show, :edit, :update, :destroy]
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
     redirect_to root_path, notice: "Blog post not found"
@@ -62,7 +62,8 @@ class BlogPostsController < ApplicationController
 
   def unlike
     @blog_post = BlogPost.find(params[:id])
-    current_user.likes.find_by(likeable: @blog_post).destroy
+    like = current_user.likes.find_by(likeable: @blog_post)
+    like.destroy if like
     redirect_to @blog_post, notice: 'Post unliked!'
   end
 

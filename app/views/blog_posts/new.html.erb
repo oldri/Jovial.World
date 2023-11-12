@@ -1,5 +1,9 @@
-<!-- FILEPATH: /Users/oldri/Documents/Development/ruby-sandbox/go-rails/blog/app/views/blog_posts/new.html.erb -->
-<div class="content-section">
-  <h1>New Blog Post</h1>
-  <%= render 'form', blog_post: @blog_post %>
+<div class="container mx-auto">
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="text-3xl font-bold">New Blog Post</h1>
+    <%= link_to "Back", root_path, class: "btn bg-gray-500 text-white hover:bg-gray-600 px-4 py-2 rounded-md" %>
+  </div>
+  <div class="bg-white p-8 rounded-md shadow-md">
+    <%= render 'form', blog_post: @blog_post %>
+  </div>
 </div>
