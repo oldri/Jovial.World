@@ -25,7 +25,7 @@
       </p>
     </div>
     <div class="flex justify-between items-center text-sm text-gray-700">
-      <p>Comments: <%= post.comments.count %></p>
+      <p><%= pluralize(post.comments.count, 'Comment') %></p>
     </div>
     <% if post.errors.any? %>
     <div
