@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_12_003045) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_14_183109) do
   create_table "blog_posts", force: :cascade do |t|
     t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.datetime "published_at"
     t.index ["user_id"], name: "index_blog_posts_on_user_id"
   end
 
@@ -38,6 +39,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_12_003045) do
     t.datetime "updated_at", null: false
     t.string "likeable_type", null: false
     t.integer "likeable_id", null: false
+    t.integer "status"
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
@@ -52,6 +54,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_12_003045) do
     t.datetime "updated_at", null: false
     t.string "user_name"
     t.string "unconfirmed_email"
+    t.string "time_zone"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unconfirmed_email"], name: "index_users_on_unconfirmed_email"

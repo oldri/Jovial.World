@@ -26,6 +26,11 @@
       <%= form.text_area :body, rows: 4, class: "w-full p-2 border rounded-md" %>
     </div>
 
+    <div class="mb-4">
+      <%= form.label :published_at %>
+      <%= form.datetime_local_field :published_at, class: "w-full p-2 border rounded-md" %>
+    </div>
+
     <div>
       <%= form.submit "Submit", class: "btn bg-blue-500 text-white hover:bg-blue-600 w-full p-2 rounded-md" %>
     </div>

@@ -7,7 +7,11 @@ class BlogPostsController < ApplicationController
   end
 
   def index
-    @blog_posts = BlogPost.order(created_at: :desc)
+    @blog_posts = if user_signed_in?
+                    BlogPost.where('user_id = ?', current_user.id).order(published_at: :desc)
+                  else
+                    BlogPost.published.order(published_at: :desc)
+                  end
   end
 
   def show
@@ -48,6 +52,7 @@ class BlogPostsController < ApplicationController
   def destroy
     if @blog_post.user == current_user
       @blog_post.destroy
+      flash[:notice] = "Blog post was successfully deleted."
       redirect_to root_path
     else
       redirect_to root_path, alert: "You are not authorized to delete this post."
@@ -56,24 +61,29 @@ class BlogPostsController < ApplicationController
 
   def like
     @blog_post = BlogPost.find(params[:id])
-    current_user.likes.create(likeable: @blog_post)
-    redirect_to @blog_post, notice: 'Post liked!'
+    like = current_user.likes.find_or_initialize_by(likeable: @blog_post)
+    like.status = :liked
+    like.save
+    redirect_to @blog_post
   end
 
   def unlike
     @blog_post = BlogPost.find(params[:id])
     like = current_user.likes.find_by(likeable: @blog_post)
-    like.destroy if like
-    redirect_to @blog_post, notice: 'Post unliked!'
+    if like
+      like.status = :unliked
+      like.save
+    end
+    redirect_to @blog_post
   end
 
   private
 
   def blog_post_params
-    params.require(:blog_post).permit(:title, :body)
+    params.require(:blog_post).permit(:title, :body, :published_at)
   end
 
   def set_blog_post
-    @blog_post = BlogPost.find(params[:id])
+    @blog_post = user_signed_in? ? BlogPost.find(params[:id]) : BlogPost.published.find(params[:id])
   end
 end
