@@ -34,21 +34,17 @@
 
         <div>
           <ul class="flex space-x-4">
-            <% if user_signed_in? %> <% unless
-            current_page?(new_user_session_path) %>
-            <li><%= link_to 'New Post', new_blog_post_path %></li>
-            <li><%= link_to 'Profile', edit_user_registration_path %></li>
+            <% if user_signed_in? %> <% unless current_page?(new_user_session_path) %>
+            <li class="border-r border-white pr-4"><%= link_to 'New Post', new_blog_post_path %></li>
+            <li class="border-r border-white pr-4"><%= link_to 'Profile', edit_user_registration_path %></li>
             <li>
-              <%= button_to 'Log Out', destroy_user_session_path, method:
-              :delete %>
+              <%= button_to 'Log Out', destroy_user_session_path, method: :delete %>
             </li>
-            <% end %> <% else %> <% unless current_page?(new_user_session_path)
-            %> <% unless current_page?(new_user_registration_path) %>
-            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+            <% end %> <% else %> <% unless current_page?(new_user_session_path) %> <% unless current_page?(new_user_registration_path) %>
+            <li class="border-r border-white pr-4"><%= link_to 'Sign Up', new_user_registration_path %></li>
             <% end %> <% end %> <% end %>
           </ul>
         </div>
-      </div>
     </nav>
 
     <div class="container mx-auto py-8 flex">
