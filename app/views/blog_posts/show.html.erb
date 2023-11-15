@@ -42,32 +42,50 @@
   <% end %>
 
   <h2 class="mt-6"><%= pluralize(@blog_post.comments.count, 'Comment') %></h2>
-  <% @blog_post.comments.each do |comment| %>
-    <div class="mt-4 flex justify-between items-center p-2 rounded-md">
-      <div class="comment-content pl-4 border-l-2 border-gray-600">
-        <p class="text-gray-800"><strong><%= comment.user.user_name %>:</strong> <%= comment.content %></p>
-        <p class="text-gray-600 text-sm">Posted <%= time_ago_in_words(comment.created_at) %> ago</p>      
-      </div>
-      <% if user_signed_in? && comment.user == current_user %>
-      <div class="relative inline-block text-left">
-        <div>
-          <button type="button" class="inline-flex items-center justify-center w-full gap-x-1.5 rounded-md bg-white px-2 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50"  id="menu-button-<%= comment.id %>" aria-expanded="true" aria-haspopup="true">
-            <svg class="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <circle cx="3" cy="10" r="2" />
-              <circle cx="10" cy="10" r="2" />
-              <circle cx="17" cy="10" r="2" />
-            </svg>
-          </button>
-        </div>
-        <div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button-<%= comment.id %>" style="display: none;">
-          <div class="py-1" role="none">
-            <%= button_to 'Remove', [@blog_post, comment], method: :delete, class: "block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", role: "menuitem" %>
+  <div id="comments-container">
+    <% @blog_post.comments.each do |comment| %>
+      <div class="mt-4 flex justify-between items-center p-2 rounded-md">
+        <div class="comment-content pl-4 border-l-2 border-gray-600" style="width:100%">
+          <div id="comment-<%= comment.id %>-display">
+            <div class="flex"> 
+              <p class="text-gray-800">
+                <strong style="margin-right: 4px;"><%= comment.user.user_name %>:</strong> 
+                <%= comment.content %>
+              </p>
+            </div>        
+            <p class="text-gray-600 text-sm">Posted <%= time_ago_in_words(comment.created_at) %> ago</p>      
+          </div>
+          <div id="comment-<%= comment.id %>-edit" style="display: none;">
+            <%= form_with(model: [comment.blog_post, comment], local: true, class: "edit-comment-form flex items-center") do |form| %>
+              <%= form.text_area :content, value: strip_tags(comment.content.to_s).squish, class: "w-full rounded-md mr-2 single-line-textarea", rows: 1 %>
+              <%= form.submit "↑", id: "comment_submit_button", class: "btn text-gray-400 hover:text-gray-800" %>
+            <% end %>
           </div>
         </div>
+        <% if user_signed_in? && comment.user == current_user %>
+          <div class="relative inline-block text-left">
+            <div>
+              <button type="button" class="edit-button inline-flex items-center justify-center w-full gap-x-1.5 rounded-md bg-white px-2 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50"  id="menu-button-<%= comment.id %>" aria-expanded="true" aria-haspopup="true">
+                <svg class="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <circle cx="3" cy="10" r="2" />
+                  <circle cx="10" cy="10" r="2" />
+                  <circle cx="17" cy="10" r="2" />
+                </svg>
+              </button>
+            </div>
+            <div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button-<%= comment.id %>" style="display: none;">
+              <div class="py-1" role="none">
+                <button type="button" class="edit-dropdown-button block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-comment-id="<%= comment.id %>">
+                  Edit
+                </button>
+                <%= button_to 'Remove', [@blog_post, comment], method: :delete, class: "block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", role: "menuitem" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
-      <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
   
   <% if user_signed_in? %>
     <%= form_with(model: [ @blog_post, Comment.new ], local: true) do |form| %>

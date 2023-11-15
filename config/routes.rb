@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   }
 
   resources :blog_posts do
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy, :edit, :update]
     member do
       post 'like'
       delete 'unlike'

@@ -5,3 +5,10 @@
 .flash-notice {
   @apply z-50 fixed top-0 left-1/2 text-center transform -translate-x-1/2 bg-green-500 text-white p-4 mt-4 rounded-md;
 }@import 'actiontext.css';
+
+.single-line-textarea {
+  border: none;
+  background-color: transparent;
+  resize: none;
+  overflow: hidden;
+}

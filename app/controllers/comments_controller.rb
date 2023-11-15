@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_blog_post
-  before_action :set_comment, only: [:destroy]
-  before_action :authorize_user!, only: [:destroy]
+  before_action :set_comment, only: [:destroy, :edit, :update]
+  before_action :authorize_user!, only: [:destroy, :edit, :update]
 
   def create
     @comment = @blog_post.comments.build(comment_params)
@@ -12,6 +12,17 @@ class CommentsController < ApplicationController
       redirect_to blog_post_path(@blog_post, anchor: "comments"), notice: "Comment was successfully created."
     else
       redirect_to blog_post_path(@blog_post, anchor: "comments"), alert: "Error creating comment."
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @comment.update(comment_params)
+      redirect_to blog_post_path(@blog_post, anchor: "comments"), notice: "Comment was successfully updated."
+    else
+      render :edit
     end
   end
 
