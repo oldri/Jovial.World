@@ -2,6 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-import { handleCommentForm } from "comment_form";
+import { init as initCommentForm } from "comment_form";
 
-handleCommentForm();
+initCommentForm();

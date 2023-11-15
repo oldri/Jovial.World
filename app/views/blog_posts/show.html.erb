@@ -61,7 +61,7 @@
         </div>
         <div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button-<%= comment.id %>" style="display: none;">
           <div class="py-1" role="none">
-            <%= button_to 'Remove', [@blog_post, comment], method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", role: "menuitem" %>
+            <%= button_to 'Remove', [@blog_post, comment], method: :delete, class: "block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", role: "menuitem" %>
           </div>
         </div>
       </div>
@@ -85,18 +85,3 @@
     </p>
   <% end %>
 </div>
-<script>
-  document.querySelectorAll('[id^="menu-button-"]').forEach((button) => {
-    button.addEventListener('click', (event) => {
-      event.stopPropagation();
-      const menu = button.parentElement.nextElementSibling;
-      menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-    });
-  });
-
-  document.addEventListener('click', () => {
-    document.querySelectorAll('[role="menu"]').forEach((menu) => {
-      menu.style.display = 'none';
-    });
-  });
-</script>
