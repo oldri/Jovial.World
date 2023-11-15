@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_blog_post
   before_action :set_comment, only: [:destroy]
+  before_action :authorize_user!, only: [:destroy]
 
   def create
     @comment = @blog_post.comments.build(comment_params)
@@ -15,12 +16,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    if @comment.user == current_user
-      @comment.destroy
-      redirect_to @blog_post, notice: "Comment was successfully deleted."
-    else
-      redirect_to @blog_post, alert: "You are not authorized to delete this comment."
-    end
+    @comment.destroy
+    redirect_to @blog_post, notice: "Comment was successfully deleted."
   end
 
   private
@@ -35,5 +32,9 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:body)
+  end
+
+  def authorize_user!
+    redirect_to @blog_post, alert: "You are not authorized to delete this comment." unless @comment.user == current_user
   end
 end
