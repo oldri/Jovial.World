@@ -5,3 +5,5 @@ import "controllers"
 import { init as initCommentForm } from "comment_form";
 
 initCommentForm();
+import "trix"
+import "@rails/actiontext"

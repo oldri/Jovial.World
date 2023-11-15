@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:body)
+    params.require(:comment).permit(:content)
   end
 
   def authorize_user!

@@ -11,7 +11,7 @@
   </div>
 
   <p class="text-gray-700 text-lg font-semibold mb-2">By: <%= @blog_post.user.user_name %></p>
-  <p class="text-gray-800 text-base leading-relaxed mb-6"><%= @blog_post.body %></p>
+  <p class="text-gray-800 text-base leading-relaxed mb-6"><%= @blog_post.content %></p>
 
   <div class="text-sm text-gray-700 flex">
     <p>Written on <%= @blog_post.created_at.strftime("%B %d, %Y") %></p>
@@ -45,7 +45,7 @@
   <% @blog_post.comments.each do |comment| %>
     <div class="mt-4 flex justify-between items-center p-2 rounded-md">
       <div class="comment-content pl-4 border-l-2 border-gray-600">
-        <p class="text-gray-800"><strong><%= comment.user.user_name %>:</strong> <%= comment.body %></p>
+        <p class="text-gray-800"><strong><%= comment.user.user_name %>:</strong> <%= comment.content %></p>
         <p class="text-gray-600 text-sm">Posted <%= time_ago_in_words(comment.created_at) %> ago</p>      
       </div>
       <% if user_signed_in? && comment.user == current_user %>
@@ -72,7 +72,7 @@
   <% if user_signed_in? %>
     <%= form_with(model: [ @blog_post, Comment.new ], local: true) do |form| %>
       <div class="field relative mt-6">
-        <%= form.text_area :body, rows: 4, class: "w-full p-2 border rounded-md", id: "commentBody" %>
+        <%= form.text_area :content, rows: 4, class: "w-full p-2 border rounded-md", id: "commentContent" %>
         <span id="charCount" class="text-sm text-gray-500 absolute right-2 top-2">0/1000</span>
       </div>
       <div class="actions mt-4">

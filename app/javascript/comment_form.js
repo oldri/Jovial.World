@@ -12,7 +12,7 @@ function toggleButtonState(commentLength, submitButton) {
 
 export function handleCommentForm() {
   function setupForm() {
-    let commentInput = document.getElementById('commentBody');
+    let commentInput = document.getElementById('commentContent');
     let submitButton = document.getElementById('submit_button');
     let charCount = document.getElementById('charCount');
 
