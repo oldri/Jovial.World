@@ -7,6 +7,7 @@ class BlogPost < ApplicationRecord
 
   validates :title, presence: true
   validates :content, presence: true
+  validates :visibility, presence: true
 
   scope :draft, -> { where(published_at: nil) }
   scope :published, -> { where('published_at IS NOT NULL AND published_at <= ?', Time.current) }

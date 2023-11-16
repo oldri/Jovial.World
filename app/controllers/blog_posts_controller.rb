@@ -8,9 +8,9 @@ class BlogPostsController < ApplicationController
   end
 
   def index
-    @blog_posts = BlogPost.published.order(published_at: :desc)
+    @blog_posts = BlogPost.where(visibility: 'public').order(published_at: :desc)
   end
-
+  
   def show
   end
 
@@ -56,7 +56,7 @@ class BlogPostsController < ApplicationController
   private
 
   def blog_post_params
-    params.require(:blog_post).permit(:title, :content, :published_at)
+    params.require(:blog_post).permit(:title, :content, :published_at, :visibility)
   end
 
   def set_blog_post

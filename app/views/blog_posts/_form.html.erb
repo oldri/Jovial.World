@@ -30,7 +30,19 @@
       <%= form.label :published_at do %>
         <span class="block text-gray-700 text-sm font-bold">Published at</span> <em class="text-xs">(If date not selected, blog post will be a draft)</em>      
       <% end %>
-      <%= form.datetime_local_field :published_at, class: "w-full p-2 border rounded-md" %>
+      <%= form.date_field :published_at, min: Date.today, class: "w-full p-2 border rounded-md" %>
+    </div>
+    
+    <div class="mb-4">
+      <%= form.label :visibility, class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <div class="flex items-center">
+        <%= form.radio_button :visibility, 'public', class: "mr-2" %>
+        <%= form.label :visibility, 'Public', value: 'public' %>
+      </div>
+      <div class="flex items-center">
+        <%= form.radio_button :visibility, 'private', class: "mr-2" %>
+        <%= form.label :visibility, 'Private', value: 'private' %>
+      </div>
     </div>
 
     <div>
