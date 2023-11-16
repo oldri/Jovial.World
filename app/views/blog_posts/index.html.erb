@@ -1,19 +1,22 @@
 <div>
   <% @blog_posts.each do |post| %>
   <div class="bg-white p-6 mb-4 rounded-md shadow-md">
-    <div class="flex justify-between items-start">
-      <h2 class="text-2xl font-bold mb-4 text-blue-600 hover:text-blue-800 transition-colors duration-200">
-        <%= link_to post.title, post, class: "no-underline hover:underline" %>
-      </h2>
+    <div class="flex justify-between items-start mb-4">
+      <p class="text-gray-700 text-lg font-semibold">
+        <%= post.user.user_name %>
+      </p>
       <% status = post.draft? ? 'Draft' : post.scheduled? ? 'Scheduled' : 'Published' %>
       <% color_class = post.draft? ? 'bg-red-200 text-red-800' : post.scheduled? ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800' %>
-      <div class="<%= color_class %> px-2 py-1 rounded-md text-sm mb-2">
+      <div class="<%= color_class %> px-2 py-1 rounded-md text-sm">
         <%= status %>
       </div>
     </div>
-    <p class="text-gray-700 text-lg font-semibold mb-2">
-      By: <%= post.user.user_name %>
-    </p>
+    <div class="mb-6">
+      <img src="<%= asset_path('rabbit.png') %>" class="w-full h-64 object-cover rounded-md" />
+    </div>
+    <h2 class="text-2xl font-bold mb-4 text-blue-600 hover:text-blue-800 transition-colors duration-200">
+      <%= link_to post.title, post, class: "no-underline hover:underline" %>
+    </h2>
     <p class="text-gray-800 text-base leading-relaxed mb-6">
       <%= post.content.to_plain_text.truncate(150) %>
     </p>
