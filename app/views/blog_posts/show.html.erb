@@ -53,7 +53,12 @@
                 <%= comment.content %>
               </p>
             </div>        
-            <p class="text-gray-600 text-sm">Posted <%= time_ago_in_words(comment.created_at) %> ago</p>      
+            <p class="text-gray-600 text-sm">
+              Posted <%= time_ago_in_words(comment.created_at) %> ago
+              <% if comment.updated_at > comment.created_at + 1.second %>
+                <em>(edited)</em>
+              <% end %>
+            </p>
           </div>
           <div id="comment-<%= comment.id %>-edit" style="display: none;">
             <%= form_with(model: [comment.blog_post, comment], local: true, class: "edit-comment-form flex items-center") do |form| %>
