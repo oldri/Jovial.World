@@ -5,11 +5,6 @@
       <p class="text-gray-700 text-lg font-semibold">
         <%= post.user.user_name %>
       </p>
-      <% status = post.draft? ? 'Draft' : post.scheduled? ? 'Scheduled' : 'Published' %>
-      <% color_class = post.draft? ? 'bg-red-200 text-red-800' : post.scheduled? ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800' %>
-      <div class="<%= color_class %> px-2 py-1 rounded-md text-sm">
-        <%= status %>
-      </div>
     </div>
     <div class="mb-6">
       <img src="<%= asset_path('rabbit.png') %>" class="w-full h-80 object-cover rounded-md" />

@@ -3,11 +3,6 @@
     <h2 class="text-3xl font-bold mb-4">
       <%= @blog_post.title %>
     </h2>
-    <% status = @blog_post.draft? ? 'Draft' : @blog_post.scheduled? ? 'Scheduled' : 'Published' %>
-    <% color_class = @blog_post.draft? ? 'bg-red-200 text-red-800' : @blog_post.scheduled? ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800' %>
-    <div class="<%= color_class %> px-2 py-1 rounded-md text-sm mb-2">
-      <%= status %>
-    </div>
   </div>
 
   <p class="text-gray-700 text-lg font-semibold mb-2"><%= @blog_post.user.user_name %></p>
