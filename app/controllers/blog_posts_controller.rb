@@ -8,11 +8,7 @@ class BlogPostsController < ApplicationController
   end
 
   def index
-    @blog_posts = if user_signed_in?
-        BlogPost.where("user_id = ?", current_user.id).order(published_at: :desc)
-      else
-        BlogPost.published.order(published_at: :desc)
-      end
+    @blog_posts = BlogPost.published.order(published_at: :desc)
   end
 
   def show

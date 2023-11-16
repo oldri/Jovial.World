@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, only: [] do
+    get 'posts', on: :member
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
   root "blog_posts#index"
 end

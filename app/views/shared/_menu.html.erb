@@ -11,7 +11,15 @@
       <%= link_to 'New Post', new_blog_post_path %>
     </li>
     <li class="border-r border-white pr-4">
-      <%= link_to 'Profile', edit_user_registration_path %>
+      <a href="#" id="profile-link" class="block">Profile</a>
+      <ul id="profile-options" class="hidden">
+        <li class="pl-4">
+          <%= link_to 'Settings', edit_user_registration_path %>
+        </li>
+        <li class="pl-4">
+          <%= link_to 'Posts', posts_user_path(current_user) %>        
+        </li>
+      </ul> 
     </li>
     <li>
       <%= button_to 'Log Out', destroy_user_session_path, method: :delete %>
@@ -27,5 +35,14 @@
 <script>
   document.getElementById("menu-toggle").addEventListener("click", function () {
     document.getElementById("menu").classList.toggle("translate-x-full");
+  });
+  document.getElementById("profile-link").addEventListener("click", function (event) {
+    event.preventDefault();
+    var profileOptions = document.getElementById("profile-options");
+    if (profileOptions.classList.contains("hidden")) {
+      profileOptions.classList.remove("hidden");
+    } else {
+      profileOptions.classList.add("hidden");
+    }
   });
 </script>
