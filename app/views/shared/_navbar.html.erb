@@ -1,4 +1,4 @@
-<nav class="bg-gray-800 text-white py-4">
+<nav class="bg-gray-100 text-gray-700 py-4">
   <div class="container mx-auto flex justify-between items-center">
     <div class="lg:block hidden">
       <ul>
@@ -10,10 +10,10 @@
 
     <ul class="lg:flex hidden">
       <% if user_signed_in? %> <% unless current_page?(new_user_session_path) %>
-      <li class="border-r border-white pr-4 py-2 mr-2">
+      <li class="border-r border-gray-700 pr-4 py-2 mr-2">
         <%= link_to 'New Post', new_blog_post_path, class: 'font-semibold' %>
       </li>
-      <li class="relative group border-r border-white pr-4 py-2 mr-2">
+      <li class="relative group border-r border-gray-700 pr-4 py-2 mr-2">
         <a href="#" class="inline-block font-semibold">Profile</a>
         <ul class="absolute left-0 transform scale-0 group-hover:scale-100 transition-transform duration-200 origin-top min-w-full bg-white text-black py-2 z-10 border border-gray-200 rounded-md shadow-lg">
           <li class="px-4 py-2 hover:bg-gray-100 transition-colors duration-200">
@@ -29,14 +29,14 @@
       </li>
       <% end %> <% else %> <% unless current_page?(new_user_session_path) %> <%
       unless current_page?(new_user_registration_path) %>
-      <li class="border-r border-white pr-4 py-2 mr-2">
+      <li class="pr-4 py-2 mr-2">
         <%= link_to 'Sign Up', new_user_registration_path, class: 'font-semibold' %>
       </li>
       <% end %> <% end %> <% end %>
     </ul>
 
     <div class="lg:hidden flex items-center justify-center w-full">
-      <button class="text-white p-4" id="menu-toggle">
+      <button class="text-gray-700 p-4" id="menu-toggle">
         <i class="fas fa-bars text-2xl"></i>
       </button>
       <div id="colorful-text" class="mx-auto">
