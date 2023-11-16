@@ -8,10 +8,10 @@
     </li>
     <% if user_signed_in? %> <% unless current_page?(new_user_session_path) %>
     <li class="border-r border-white pr-4">
-      <%= link_to 'New Post', new_blog_post_path %>
+      <%= link_to 'New Post', new_blog_post_path, class: 'font-semibold' %>
     </li>
     <li class="border-r border-white pr-4">
-      <a href="#" id="profile-link" class="block">Profile</a>
+      <a href="#" id="profile-link" class="block font-semibold">Profile</a>
       <ul id="profile-options" class="hidden">
         <li class="pl-4">
           <%= link_to 'Posts', posts_user_path(current_user) %>        
@@ -22,12 +22,12 @@
       </ul> 
     </li>
     <li>
-      <%= button_to 'Log Out', destroy_user_session_path, method: :delete %>
+      <%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: 'font-semibold' %>
     </li>
     <% end %> <% else %> <% unless current_page?(new_user_session_path) %> <%
     unless current_page?(new_user_registration_path) %>
     <li class="border-r border-white pr-4">
-      <%= link_to 'Sign Up', new_user_registration_path %>
+      <%= link_to 'Sign Up', new_user_registration_path, class: 'font-semibold' %>
     </li>
     <% end %> <% end %> <% end %>
   </ul>

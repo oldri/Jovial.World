@@ -11,26 +11,26 @@
     <ul class="lg:flex hidden">
       <% if user_signed_in? %> <% unless current_page?(new_user_session_path) %>
       <li class="border-r border-white pr-4 py-2 mr-2">
-        <%= link_to 'New Post', new_blog_post_path %>
+        <%= link_to 'New Post', new_blog_post_path, class: 'font-semibold' %>
       </li>
       <li class="relative group border-r border-white pr-4 py-2 mr-2">
-        <a href="#" class="inline-block">Profile</a>
+        <a href="#" class="inline-block font-semibold">Profile</a>
         <ul class="absolute left-0 transform scale-0 group-hover:scale-100 transition-transform duration-200 origin-top min-w-full bg-white text-black py-2 z-10 border border-gray-200 rounded-md shadow-lg">
           <li class="px-4 py-2 hover:bg-gray-100 transition-colors duration-200">
             <%= link_to 'Posts', posts_user_path(current_user) %>          
           </li>
           <li class="px-4 py-2 hover:bg-gray-100 transition-colors duration-200">
-            <%= link_to 'Settings', edit_user_registration_path, class: 'block' %> 
+            <%= link_to 'Settings', edit_user_registration_path %> 
           </li>
         </ul>
       </li>
       <li class="py-2">
-        <%= button_to 'Log Out', destroy_user_session_path, method: :delete %>
+        <%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: 'font-semibold' %>
       </li>
       <% end %> <% else %> <% unless current_page?(new_user_session_path) %> <%
       unless current_page?(new_user_registration_path) %>
       <li class="border-r border-white pr-4 py-2 mr-2">
-        <%= link_to 'Sign Up', new_user_registration_path %>
+        <%= link_to 'Sign Up', new_user_registration_path, class: 'font-semibold' %>
       </li>
       <% end %> <% end %> <% end %>
     </ul>
