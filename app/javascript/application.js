@@ -1,20 +1,24 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "controllers"
+// External libraries
+import "@hotwired/turbo-rails";
+import "trix";
+import "@rails/actiontext";
 
+// Local modules
+import "controllers";
 import { init as initCommentForm } from "comment_form";
 
+// Initialize local modules
 initCommentForm();
+initTrix();
 
-// Removing / Disabling ActionText Image / Document Upload functionality
-document.addEventListener("trix-initialize", function(event) {
-  var toolbar = event.target.toolbarElement;
-  var attachmentsButton = toolbar.querySelector(".trix-button-group--file-tools");
+// Function definitions
+function initTrix() {
+  document.addEventListener("trix-initialize", function (event) {
+    var toolbar = event.target.toolbarElement;
+    var attachmentsButton = toolbar.querySelector(".trix-button-group--file-tools");
 
-  if (attachmentsButton) {
-    attachmentsButton.parentNode.removeChild(attachmentsButton);
-  }
-});
-
-import "trix"
-import "@rails/actiontext"
+    if (attachmentsButton) {
+      attachmentsButton.parentNode.removeChild(attachmentsButton);
+    }
+  });
+}

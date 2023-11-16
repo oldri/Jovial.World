@@ -1,0 +1,61 @@
+<nav class="bg-gray-800 text-white py-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="lg:block hidden">
+      <ul>
+        <li id="colorful-text">
+          <%= link_to 'Jovial.World', root_path, class: 'text-8xl font-bold' %>
+        </li>
+      </ul>
+    </div>
+
+    <ul class="lg:flex hidden">
+      <% if user_signed_in? %> <% unless current_page?(new_user_session_path) %>
+      <li class="border-r border-white pr-4 py-2 mr-2">
+        <%= link_to 'New Post', new_blog_post_path %>
+      </li>
+      <li class="border-r border-white pr-4 py-2 mr-2">
+        <%= link_to 'Profile', edit_user_registration_path %>
+      </li>
+      <li class="py-2">
+        <%= button_to 'Log Out', destroy_user_session_path, method: :delete %>
+      </li>
+      <% end %> <% else %> <% unless current_page?(new_user_session_path) %> <%
+      unless current_page?(new_user_registration_path) %>
+      <li class="border-r border-white pr-4 py-2 mr-2">
+        <%= link_to 'Sign Up', new_user_registration_path %>
+      </li>
+      <% end %> <% end %> <% end %>
+    </ul>
+
+    <div class="lg:hidden flex items-center justify-center w-full">
+      <button class="text-white p-4" id="menu-toggle">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
+      <div id="colorful-text" class="mx-auto">
+        <%= link_to 'Jovial.World', root_path, class: 'text-4xl font-bold' %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#colorful-text a").each(function () {
+      var letters = $(this).text().split("");
+      $(this).empty();
+      for (var i = 0; i < letters.length; i++) {
+        var color =
+          "rgb(" +
+          Math.floor(Math.random() * 256) +
+          "," +
+          Math.floor(Math.random() * 256) +
+          "," +
+          Math.floor(Math.random() * 256) +
+          ")";
+        var span = $("<span>").text(letters[i]).css("color", color);
+        $(this).append(span);
+      }
+    });
+  });
+</script>

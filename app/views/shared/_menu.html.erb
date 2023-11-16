@@ -1,0 +1,31 @@
+<div
+  class="fixed top-0 right-0 h-full bg-white w-64 p-8 shadow-lg transform translate-x-full overflow-auto transition-transform duration-200 ease-in-out lg:hidden"
+  id="menu"
+>
+  <ul>
+    <li id="colorful-text">
+      <%= link_to 'Jovial.World', root_path, class: 'text-2xl font-bold mb-4' %>
+    </li>
+    <% if user_signed_in? %> <% unless current_page?(new_user_session_path) %>
+    <li class="border-r border-white pr-4">
+      <%= link_to 'New Post', new_blog_post_path %>
+    </li>
+    <li class="border-r border-white pr-4">
+      <%= link_to 'Profile', edit_user_registration_path %>
+    </li>
+    <li>
+      <%= button_to 'Log Out', destroy_user_session_path, method: :delete %>
+    </li>
+    <% end %> <% else %> <% unless current_page?(new_user_session_path) %> <%
+    unless current_page?(new_user_registration_path) %>
+    <li class="border-r border-white pr-4">
+      <%= link_to 'Sign Up', new_user_registration_path %>
+    </li>
+    <% end %> <% end %> <% end %>
+  </ul>
+</div>
+<script>
+  document.getElementById("menu-toggle").addEventListener("click", function () {
+    document.getElementById("menu").classList.toggle("translate-x-full");
+  });
+</script>
