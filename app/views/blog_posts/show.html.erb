@@ -101,7 +101,7 @@
   <% if user_signed_in? %>
     <%= form_with(model: [ @blog_post, Comment.new ], local: true) do |form| %>
       <div class="field relative mt-6">
-        <%= form.text_area :content, rows: 4, class: "w-full p-2 border rounded-md", id: "commentContent" %>
+        <%= form.text_area :content, rows: 1, class: "w-full p-2 border rounded-md", id: "commentContent", placeholder: "Write a comment..." %>
         <span id="charCount" class="text-sm text-gray-500 absolute right-2 top-2">0/1000</span>
       </div>
       <div class="actions mt-4">
