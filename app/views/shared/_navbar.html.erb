@@ -17,10 +17,10 @@
         <a href="#" class="inline-block">Profile</a>
         <ul class="absolute left-0 transform scale-0 group-hover:scale-100 transition-transform duration-200 origin-top min-w-full bg-white text-black py-2 z-10 border border-gray-200 rounded-md shadow-lg">
           <li class="px-4 py-2 hover:bg-gray-100 transition-colors duration-200">
-            <%= link_to 'Settings', edit_user_registration_path, class: 'block' %> 
+            <%= link_to 'Posts', posts_user_path(current_user) %>          
           </li>
           <li class="px-4 py-2 hover:bg-gray-100 transition-colors duration-200">
-            <%= link_to 'Posts', posts_user_path(current_user) %>          
+            <%= link_to 'Settings', edit_user_registration_path, class: 'block' %> 
           </li>
         </ul>
       </li>

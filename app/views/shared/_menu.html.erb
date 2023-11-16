@@ -14,10 +14,10 @@
       <a href="#" id="profile-link" class="block">Profile</a>
       <ul id="profile-options" class="hidden">
         <li class="pl-4">
-          <%= link_to 'Settings', edit_user_registration_path %>
+          <%= link_to 'Posts', posts_user_path(current_user) %>        
         </li>
         <li class="pl-4">
-          <%= link_to 'Posts', posts_user_path(current_user) %>        
+          <%= link_to 'Settings', edit_user_registration_path %>
         </li>
       </ul> 
     </li>
