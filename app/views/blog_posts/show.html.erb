@@ -8,9 +8,9 @@
   <p class="text-gray-700 text-lg font-semibold mb-2">
     <%= @blog_post.user.user_name %>
     <% if current_user == @blog_post.user %>
-    <span class="px-2 py-1 rounded text-sm <%= @blog_post.visibility == 'private' ? 'bg-purple-200 text-purple-800' : 'bg-blue-200 text-blue-800' %>">
+    <span class="px-2 py-1 rounded text-sm <%= @blog_post.visibility == 'draft' ? 'bg-red-200 text-red-800' : @blog_post.visibility == 'private' ? 'bg-purple-200 text-purple-800' : 'bg-blue-200 text-blue-800' %>">
       <%= @blog_post.visibility.capitalize %>
-      </span>
+    </span>
     <% end %>
   </p>
   

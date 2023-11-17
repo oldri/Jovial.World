@@ -9,12 +9,12 @@ class BlogPost < ApplicationRecord
   validates :content, presence: true
   validates :visibility, presence: true
 
-  scope :draft, -> { where(published_at: nil) }
+  scope :draft, -> { where(visibility: 'draft') } 
   scope :published, -> { where('published_at IS NOT NULL AND published_at <= ?', Time.current) }
   scope :scheduled, -> { where("published_at > ?", Time.current) }
 
   def draft?
-    published_at.nil?
+    visibility == 'draft'
   end
 
   def published?

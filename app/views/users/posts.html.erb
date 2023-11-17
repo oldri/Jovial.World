@@ -7,14 +7,16 @@
                         <%= post.user.user_name %>
                     </p>
                     <div class="flex items-center">
-                        <span class="px-2 py-1 rounded text-sm <%= post.visibility == 'private' ? 'bg-purple-200 text-purple-800' : 'bg-blue-200 text-blue-800' %>">
+                        <span class="px-2 py-1 rounded text-sm <%= post.visibility == 'draft' ? 'bg-red-200 text-red-800' : post.visibility == 'private' ? 'bg-purple-200 text-purple-800' : 'bg-blue-200 text-blue-800' %>">
                             <%= post.visibility.capitalize %>
                         </span>
-                        <% status = post.draft? ? 'Draft' : post.scheduled? ? 'Scheduled' : 'Published' %>
-                        <% color_class = post.draft? ? 'bg-red-200 text-red-800' : post.scheduled? ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800' %>
-                        <div class="<%= color_class %> ml-2 px-2 py-1 rounded-md text-sm">
-                            <%= status %>
-                        </div>
+                        <% unless post.visibility == 'draft' %>
+                            <% status = post.scheduled? ? 'Scheduled' : 'Published' %>
+                            <% color_class = post.scheduled? ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800' %>
+                            <div class="<%= color_class %> ml-2 px-2 py-1 rounded-md text-sm">
+                                <%= status %>
+                            </div>
+                        <% end %>
                     </div>
                 </div>
 

@@ -28,7 +28,7 @@
 
     <div class="mb-4">
       <%= form.label :published_at do %>
-        <span class="block text-gray-700 text-sm font-bold">Published at</span> <em class="text-xs">(If date not selected, blog post will be a draft)</em>      
+        <span class="block text-gray-700 text-sm font-bold">Published at</span> <em class="text-xs">(If date not selected, blog post will be published)</em>      
       <% end %>
       <%= form.date_field :published_at, min: Date.today, class: "w-full p-2 border rounded-md" %>
     </div>
@@ -42,6 +42,10 @@
       <div class="flex items-center">
         <%= form.radio_button :visibility, 'private', class: "mr-2" %>
         <%= form.label :visibility, 'Private', value: 'private' %>
+      </div>
+      <div class="flex items-center">
+        <%= form.radio_button :visibility, 'draft', class: "mr-2" %>
+        <%= form.label :visibility, 'Draft', value: 'draft' %>
       </div>
     </div>
 

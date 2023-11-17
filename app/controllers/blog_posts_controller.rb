@@ -8,7 +8,7 @@ class BlogPostsController < ApplicationController
   end
 
   def index
-    @blog_posts = BlogPost.where(visibility: 'public').order(published_at: :desc)
+    @blog_posts = BlogPost.where(visibility: 'public').published.order(published_at: :desc)
   end
   
   def show
@@ -20,19 +20,30 @@ class BlogPostsController < ApplicationController
 
   def create
     @blog_post = current_user.blog_posts.new(blog_post_params)
-
+  
+    if @blog_post.visibility == 'draft'
+      @blog_post.published_at = nil
+    else
+      @blog_post.published_at ||= Date.today
+    end
+  
     if @blog_post.save
       redirect_to @blog_post
     else
       render :new, status: :unprocessable_entity
     end
   end
-
+  
   def edit
   end
 
   def update
     if @blog_post.update(blog_post_params)
+      if @blog_post.visibility == 'draft'
+        @blog_post.update(published_at: nil)
+      else
+        @blog_post.update(published_at: Date.today) if @blog_post.published_at.nil?
+      end
       redirect_to @blog_post
     else
       render :edit, status: :unprocessable_entity
