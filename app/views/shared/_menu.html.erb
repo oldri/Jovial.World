@@ -8,10 +8,10 @@
     </li>
     <% if user_signed_in? %> <% unless current_page?(new_user_session_path) %>
     <li class="border-r border-white pr-4">
-      <%= link_to 'New Post', new_blog_post_path, class: 'font-semibold' %>
+      <%= link_to 'New Post', new_blog_post_path, class: 'font-medium' %>
     </li>
     <li class="border-r border-white pr-4">
-      <a href="#" id="profile-link" class="block font-semibold">Profile</a>
+      <a href="#" id="profile-link" class="block font-medium">Profile</a>
       <ul id="profile-options" class="hidden">
         <li class="pl-4">
           <%= link_to 'Posts', posts_user_path(current_user) %>        
@@ -19,17 +19,21 @@
         <li class="pl-4">
           <%= link_to 'Settings', edit_user_registration_path %>
         </li>
+        <li class="pl-4">
+          <%= button_to 'Log Out', destroy_user_session_path, method: :delete %>
+        </li>
       </ul> 
     </li>
-    <li>
-      <%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: 'font-semibold' %>
-    </li>
-    <% end %> <% else %> <% unless current_page?(new_user_session_path) %> <%
-    unless current_page?(new_user_registration_path) %>
-    <li class="border-r border-white pr-4">
-      <%= link_to 'Sign Up', new_user_registration_path, class: 'font-semibold' %>
-    </li>
-    <% end %> <% end %> <% end %>
+    <% end %> <% else %> 
+    <div>
+      <li class="border-r border-white pr-4">
+        <%= link_to 'Log In', new_user_session_path, class: 'font-medium' %>
+      </li>
+      <li class="border-r border-white pr-4">
+        <%= link_to 'Sign Up', new_user_registration_path, class: 'font-medium' %>
+      </li>
+    </div>
+    <% end %> 
   </ul>
 </div>
 <script>
