@@ -4,29 +4,25 @@
       <%= @blog_post.title %>
     </h2>
   </div>
-
   <p class="text-gray-700 text-lg font-semibold mb-2">
     <%= @blog_post.user.user_name %>
     <% if current_user == @blog_post.user %>
-    <span class="px-2 py-1 rounded text-sm <%= @blog_post.visibility == 'draft' ? 'bg-red-200 text-red-800' : @blog_post.visibility == 'private' ? 'bg-purple-200 text-purple-800' : 'bg-blue-200 text-blue-800' %>">
-      <%= @blog_post.visibility.capitalize %>
-    </span>
+      <span class="px-2 py-1 rounded text-sm <%= @blog_post.visibility == 'draft' ? 'bg-red-200 text-red-800' : @blog_post.visibility == 'private' ? 'bg-purple-200 text-purple-800' : 'bg-blue-200 text-blue-800' %>">
+        <%= @blog_post.visibility.capitalize %>
+      </span>
     <% end %>
   </p>
-  
   <div class="text-sm text-gray-700 flex mb-6">
     <p>Written on <%= @blog_post.created_at.strftime("%B %d, %Y") %></p>
     <p class="ml-2">
-      <i class="fas fa-heart <%= @blog_post.likes.liked.count.zero? ? 'text-gray-500' : 'text-pink-500' %>"></i> 
+      <i class="fas fa-heart <%= @blog_post.likes.liked.count.zero? ? 'text-gray-500' : 'text-pink-500' %>"></i>
       <%= @blog_post.likes.liked.count %>
     </p>
-  </div>  
-
+  </div>
   <div class="mb-6">
     <img src="<%= asset_path('rabbit.png') %>" class="w-full h-full object-cover rounded-md" />
   </div>
   <p class="text-gray-800 text-base leading-relaxed mb-6"><%= @blog_post.content %></p>
-  
   <% if user_signed_in? %>
     <div class="actions mt-4 flex">
       <% like = current_user.likes.find_by(likeable: @blog_post) %>
@@ -46,19 +42,18 @@
       <% end %>
     </div>
   <% end %>
-
   <h2 class="mt-6"><%= pluralize(@blog_post.comments.count, 'Comment') %></h2>
   <div id="comments-container">
     <% @blog_post.comments.each do |comment| %>
       <div class="mt-4 flex justify-between items-center p-2 rounded-md">
         <div class="comment-content pl-4 border-l-2 border-gray-600" style="width:100%">
           <div id="comment-<%= comment.id %>-display">
-            <div class="flex"> 
+            <div class="flex">
               <p class="text-gray-800">
-                <strong style="margin-right: 4px;"><%= comment.user.user_name %>:</strong> 
+                <strong style="margin-right: 4px;"><%= comment.user.user_name %>:</strong>
                 <%= comment.content %>
               </p>
-            </div>        
+            </div>
             <p class="text-gray-600 text-sm">
               Posted <%= time_ago_in_words(comment.created_at) %> ago
               <% if comment.updated_at > comment.created_at + 1.second %>
@@ -97,7 +92,6 @@
       </div>
     <% end %>
   </div>
-  
   <% if user_signed_in? %>
     <%= form_with(model: [ @blog_post, Comment.new ], local: true) do |form| %>
       <div class="field relative mt-6">
@@ -113,7 +107,6 @@
       <strong>Please <%= link_to 'log in', new_user_session_path %> to add comments.</strong>
     </p>
   <% end %>
-
   <div id="modal-delete" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
       <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -138,35 +131,28 @@
     </div>
   </div>
 </div>
-
 <script>
- document.querySelectorAll('[data-toggle="modal"]').forEach(button => button.addEventListener('click', (event) => {
-    event.preventDefault();
-    const target = button.getAttribute('data-target');
-    const blogPostId = button.getAttribute('data-blog-post-id');
-    const confirmButton = document.querySelector(`${target} [data-role="confirm"]`);
-    const deleteUrl = `/blog_posts/${blogPostId}`;
+  document.querySelectorAll('[data-toggle="modal"]').forEach(button => button.addEventListener('click', (event) => {
+     event.preventDefault();
+     const target = button.getAttribute('data-target');
+     const blogPostId = button.getAttribute('data-blog-post-id');
+     const confirmButton = document.querySelector(`${target} [data-role="confirm"]`);
+     const deleteUrl = `/blog_posts/${blogPostId}`;
 
-    confirmButton.addEventListener('click', async () => {
-      const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+     confirmButton.addEventListener('click', async () => {
+       const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
-      await fetch(deleteUrl, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': csrfToken,
-        },
-      });
+       await fetch(deleteUrl, {
+         method: 'DELETE',
+         headers: {
+           'Content-Type': 'application/json',
+           'X-CSRF-Token': csrfToken,
+         },
+       });
 
-      window.location.href = '/';
-    });
+       window.location.href = '/';
+     });
 
-    document.querySelector(target).style.display = 'block';
-  }));
-
-  </script>
-  
-  
-  
-
-  
+     document.querySelector(target).style.display = 'block';
+   }));
+</script>

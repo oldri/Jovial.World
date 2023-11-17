@@ -7,7 +7,6 @@
         <h2 class="text-sm font-semibold mb-2">
           <%= pluralize(@blog_post.errors.count, "error") %> prohibited this blog post from being saved:
         </h2>
-
         <ul>
           <% @blog_post.errors.full_messages.each do |message| %>
             <li class="list-disc ml-4"><%= message %></li>
@@ -15,32 +14,27 @@
         </ul>
       </div>
     <% end %>
-
     <div class="mb-4">
       <%= form.label :title, class: "block text-gray-700 text-sm font-bold mb-2" %>
       <%= form.text_field :title, class: "w-full p-2 border rounded-md", placeholder: "Title here..." %>
     </div>
-
     <div class="mb-4">
       <%= form.label :content, class: "block text-gray-700 text-sm font-bold mb-2" %>
       <%= form.rich_text_area :content, rows: 4, class: "w-full p-2 border rounded-md", placeholder: "Blog here..." %>
     </div>
-
     <div class="mb-4">
       <%= form.label :published_at do %>
-        <span class="block text-gray-700 text-sm font-bold">Published at</span> <em class="text-xs">(If date not selected, blog post will be published)</em>      
+        <span class="block text-gray-700 text-sm font-bold">Published at</span> <em class="text-xs">(If date not selected, blog post will be published)</em>
       <% end %>
       <%= form.date_field :published_at, min: Date.today, class: "w-full p-2 border rounded-md" %>
     </div>
-    
     <div class="mb-4">
       <%= form.label :visibility do %>
-        <span class="block text-gray-700 text-sm font-bold">Visibility</span> 
+        <span class="block text-gray-700 text-sm font-bold">Visibility</span>
         <em class="text-xs">(Only public posts can be viewed by all)</em>
       <% end %>
       <%= form.select :visibility, options_for_select(['public', 'private', 'draft'], @blog_post.visibility), {}, class: "w-full p-2 border rounded-md" %>
     </div>
-
     <div>
       <%= form.submit "Submit", class: "btn bg-blue-500 text-white hover:bg-blue-600 w-full p-2 rounded-md" %>
     </div>
