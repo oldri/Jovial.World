@@ -34,19 +34,11 @@
     </div>
     
     <div class="mb-4">
-      <%= form.label :visibility, class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <div class="flex items-center">
-        <%= form.radio_button :visibility, 'public', class: "mr-2" %>
-        <%= form.label :visibility, 'Public', value: 'public' %>
-      </div>
-      <div class="flex items-center">
-        <%= form.radio_button :visibility, 'private', class: "mr-2" %>
-        <%= form.label :visibility, 'Private', value: 'private' %>
-      </div>
-      <div class="flex items-center">
-        <%= form.radio_button :visibility, 'draft', class: "mr-2" %>
-        <%= form.label :visibility, 'Draft', value: 'draft' %>
-      </div>
+      <%= form.label :visibility do %>
+        <span class="block text-gray-700 text-sm font-bold">Visibility</span> 
+        <em class="text-xs">(Only public posts can be viewed by all)</em>
+      <% end %>
+      <%= form.select :visibility, options_for_select(['public', 'private', 'draft'], @blog_post.visibility), {}, class: "w-full p-2 border rounded-md" %>
     </div>
 
     <div>
