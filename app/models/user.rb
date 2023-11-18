@@ -12,5 +12,4 @@ class User < ApplicationRecord
 
   validates :user_name, presence: true, uniqueness: { case_sensitive: false }
   validates :email, presence: true, uniqueness: { case_sensitive: false }
-  validates :time_zone, presence: true
 end
